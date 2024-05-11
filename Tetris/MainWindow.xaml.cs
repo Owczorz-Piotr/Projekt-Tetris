@@ -21,19 +21,43 @@ namespace Tetris
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        public Gra gra = new Gra();
+        public Plansza plansza = new Plansza();
         public MainWindow()
         {
             InitializeComponent();
+            GenerujGrid(MainGrid);
+            Zapiszkolor(3,3);
+        }
+        void GenerujGrid(Grid grid)
+        {
+            for (int i = 0; i < 10; i++)
+            { 
+                for (int j = 1; j < 23; j++) 
+                {
+                    Rectangle rectangle = new Rectangle
+                    {
+                        Fill = Brushes.Red
+                    };
+                    rectangle.Name = "C" + i + "R" + j;
+
+                    Grid.SetColumn(rectangle, i);
+                    Grid.SetRow(rectangle, j);
+                    grid.Children.Add(rectangle);
+                }        
+            }
 
         }
+        private void Zapiszkolor(int column, int row)
+        {
+            string name = "C" + column + "R" + row;
+            Rectangle rectangle = (Rectangle)MainGrid.FindName(name);
 
-        public void ZapiszKolor(Plansza plansza)
+            if (rectangle != null)
             {
-            for (int i = 4; i < 26; i++)
-                for (int j = 0; j < 10; j++)
-                    //rect.name = plansza.pola[i,j].kolor
-                    ;
+                rectangle.Fill = plansza.pola[column, row-1].kolor;
             }
+        }
+
     }
 }
