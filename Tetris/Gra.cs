@@ -9,40 +9,40 @@ namespace Tetris
     internal class Gra
     {
         public Plansza plansza = new Plansza();
-        public bool GameOver = false;
+        public bool GameOver = true;
         public BlokBaza Blok;
         public bool Loop=false;
 
     public void przesun_w_lewo()
         {
             bool moza = true;
-            for (int i = 0; i < 26; i++)
+            for (int j = 0; j < 26; j++)
             {
-                if (plansza.pola[i, 0].status == 2)
+                if (plansza.pola[0, j].status == 2)
                     moza = false;
                 if (moza == true) break;
             }
 
             if (moza == true)
-                for (int i = 0; i < 26; i++)
-                    for (int j = 1; j < 10; j++)
+                for (int j = 0; j < 26; j++)
+                    for (int i = 1; i < 10; i++)
                     {
                         if (plansza.pola[i, j].status == 2)
-                            if (plansza.pola[i, j - 1].status == 1)
+                            if (plansza.pola[i - 1, j].status == 1)
                                 moza = false;
                         if (moza == true) break;
                     }
             if (moza == true)
             {
-                for (int i = 0; i < 26; i++)
-                    for (int j = 0; j < 9; j++)
+                for (int j = 0; j < 26; j++)
+                    for (int i = 0; i < 9; i++)
                     {
-                        if (plansza.pola[i, j + 1].status == 2)
+                        if (plansza.pola[i, j].status == 2)
                         {
                             plansza.pola[i, j].status = 2;
                             plansza.pola[i, j].kolor = plansza.pola[i, j].kolor;
-                            plansza.pola[i, j + 1].status = 0;
-                            plansza.pola[i, j + 1].kolor = kolory.szary;
+                            plansza.pola[i + 1 , j].status = 0;
+                            plansza.pola[i + 1, j].kolor = kolory.szary;
                         }
                     }
             }
@@ -51,33 +51,33 @@ namespace Tetris
         public void przesun_w_prawo()
         {
             bool moza = true;
-            for (int i = 0; i < 26; i++)
+            for (int j = 0; j < 26; j++)
             {
-                if (plansza.pola[i, 9].status == 2)
+                if (plansza.pola[9, j].status == 2)
                     moza = false;
                 if (moza == true) break;
             }
 
             if (moza == true)
-                for (int i = 0; i < 26; i++)
-                    for (int j = 0; j < 9; j++)
+                for (int j = 0; j < 26; j++)
+                    for (int i = 0; i < 9; i++)
                     {
                         if (plansza.pola[i, j].status == 2)
-                            if (plansza.pola[i, j + 1].status == 1)
+                            if (plansza.pola[i + 1, j].status == 1)
                                 moza = false;
                         if (moza == true) break;
                     }
             if (moza == true)
             {
-                for (int i = 0; i < 26; i++)
-                    for (int j = 0; j < 9; j++)
+                for (int j = 0; j < 26; j++)
+                    for (int i = 0; i < 9; i++)
                     {
-                        if (plansza.pola[i, 8 - j].status == 2)
+                        if (plansza.pola[8-i, j].status == 2)
                         {
-                            plansza.pola[i, 9 - j].status = 2;
-                            plansza.pola[i, 9 - j].kolor = plansza.pola[i, 8 - j].kolor;
-                            plansza.pola[i, 8 - j].status = 0;
-                            plansza.pola[i, 8 - j].kolor = kolory.szary;
+                            plansza.pola[9 - i, j].status = 2;
+                            plansza.pola[9 - i, j].kolor = plansza.pola[8 - i, j].kolor;
+                            plansza.pola[9 - i, j].status = 0;
+                            plansza.pola[9 - i, j].kolor = kolory.szary;
                         }
                     }
             }
@@ -86,38 +86,56 @@ namespace Tetris
         public void przezun_w_dol()
         {
             bool moza = true;
-            for (int j = 0; j < 10; j++)
+
+            for (int i = 0; i < 10; i++)
             {
-                if (plansza.pola[25, j].status == 2)
+                if (plansza.pola[i, 25].status == 2)
+                {
                     moza = false;
-                if (moza == true) break;
+                    break;
+                }
             }
-            if (moza == true)
-                for (int i = 0; i < 25; i++)
-                    for (int j = 0; j < 10; j++)
-                    {
-                        if (plansza.pola[i, j].status == 2)
-                            if (plansza.pola[i - 1, j].status == 1)
-                                moza = false;
-                        if (moza == true) break;
-                    }
-            if (moza == false)
-                Loop = false;
-            if (moza == true)
+
+
+            if (moza)
             {
-                for (int i = 0; i < 25; i++)
-                    for (int j = 0; j < 10; j++)
+                for (int j = 1; j < 25; j++)
+                {
+                    for (int i = 0; i < 10; i++)
                     {
-                        if (plansza.pola[24 - i, j].status == 2)
+                        if (plansza.pola[i, j].status == 2 && plansza.pola[i, j + 1].status == 1)
                         {
-                            plansza.pola[25 - i, j].status = 2;
-                            plansza.pola[25 - i, j].kolor = plansza.pola[24 - i, j].kolor;
-                            plansza.pola[24 - i, j].status = 0;
-                            plansza.pola[24 - i, j].kolor = kolory.szary;
+                            moza = false;
+                            break;
                         }
                     }
+                    if (!moza)
+                        break;
+                }
             }
-        }
+
+
+            if (!moza)
+            {
+                Loop = false;
+                return;
+            }
+
+
+            for (int j = 24; j >= 0; j--)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if (plansza.pola[i, j].status == 2)
+                    {
+                        plansza.pola[i, j + 1].status = 2;
+                        plansza.pola[i, j + 1].kolor = plansza.pola[i, j].kolor;
+                        plansza.pola[i, j].status = 0;
+                        plansza.pola[i, j].kolor = kolory.szary;
+                    }
+                }
+            }
+    }
 
         public void NowyZrzut()
         {
@@ -152,7 +170,7 @@ namespace Tetris
             {
                 for (int j = 0; i < n; j++)
                 {
-                    plansza.pola[3 - n - i, 4 + n - j] = Blok.pola[i, j];
+                    plansza.pola[4 - n + i, 4 + n - j] = Blok.pola[i, j];
                 }
             }
         }

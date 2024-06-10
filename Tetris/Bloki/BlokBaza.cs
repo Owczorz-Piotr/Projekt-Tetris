@@ -14,6 +14,18 @@ namespace Tetris
         public int n;
         public Pole[,] pola;
 
+        public BlokBaza(int size)
+        {
+            n = size;
+            pola = new Pole[n, n];
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    pola[i, j] = new Pole();
+                }
+            }
+        }
         public Pole[,] obrot()
         {
             Pole[,] obrocony = new Pole[n,n];

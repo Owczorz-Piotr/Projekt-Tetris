@@ -21,7 +21,7 @@ namespace Tetris
     /// </summary>
     public partial class MainWindow : Window
     {
-        internal Gra gra;
+        internal Gra gra = new Gra();
         public MainWindow()
         {
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace Tetris
                 {
                     Rectangle rectangle = new Rectangle
                     {
-                        Fill = Brushes.Gray
+                        Fill = Brushes.Purple
                     };
 
                     string rectName = "C" + i + "R" + j;
@@ -54,13 +54,14 @@ namespace Tetris
             gra = new Gra();
             gra.plansza.nowa_gra();
             gra.Loop = true;
+            gra.GameOver = false;
             while (!gra.GameOver)
             {
                 gra.NowyZrzut();
                 while (gra.Loop)
                 {
                     await Task.Delay(700);
-
+                    
                 }
             }
         }
@@ -76,10 +77,11 @@ namespace Tetris
             }
         }
 
-        private async Task Window_KeyDown(object sender, KeyEventArgs klawisz)
-        { 
-        switch(klawisz.Key)
-            {    case Key.Left:
+        private async void Window_KeyDown(object sender, KeyEventArgs klawisz)
+        {
+            switch (klawisz.Key)
+            {
+                case Key.Left:
                     {
                         if (gra.Loop)
                         {
@@ -91,26 +93,33 @@ namespace Tetris
                 case Key.Right:
                     {
                         if (gra.Loop)
-                        { 
+                        {
                             gra.przesun_w_prawo();
+                            AktualizujPlansze();
+                        }
+                        break;
+                    }
+                case Key.Down:
+                    {
+                        if (gra.Loop)
+                        {
+                            gra.przezun_w_dol();
                             AktualizujPlansze();
                         }
                         break;
                     }
                 case Key.Up:
                     {
-                        //if (Loop)
+                        //if (gra.Loop)
                         //{
                         //gra.obroc();
                         //AktualizujPlansze();
                         //}
-                        //}
                         break;
                     }
-
                 case Key.F2:
                     {
-                        if (gra == null || gra.GameOver)
+                        if (gra.GameOver)
                         {
                             await NowaGra();
                         }
@@ -122,7 +131,6 @@ namespace Tetris
                         break;
                     }
             }
-
         }
         private void AktualizujPlansze()
             {

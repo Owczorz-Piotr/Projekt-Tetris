@@ -8,7 +8,7 @@ namespace Tetris.Bloki
 {
     public class BlokI : BlokBaza
     {
-        public BlokI()
+        public BlokI() : base(4)
         {
             int n = 4;
             Pole[,] pola = new Pole[n, n];
