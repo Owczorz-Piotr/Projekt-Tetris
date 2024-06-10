@@ -21,33 +21,50 @@ namespace Tetris
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Gra gra = new Gra();
-        public Plansza plansza = new Plansza();
+        internal Gra gra;
         public MainWindow()
         {
             InitializeComponent();
             GenerujGrid(MainGrid);
-            Zapiszkolor(3,3);
+
         }
         void GenerujGrid(Grid grid)
         {
             for (int i = 0; i < 10; i++)
-            { 
-                for (int j = 1; j < 23; j++) 
+            {
+                for (int j = 1; j < 23; j++)
                 {
                     Rectangle rectangle = new Rectangle
                     {
-                        Fill = Brushes.Red
+                        Fill = Brushes.Gray
                     };
-                    rectangle.Name = "C" + i + "R" + j;
 
+                    string rectName = "C" + i + "R" + j;
+                    rectangle.Name = rectName;
+                    this.RegisterName(rectName, rectangle);
                     Grid.SetColumn(rectangle, i);
                     Grid.SetRow(rectangle, j);
                     grid.Children.Add(rectangle);
-                }        
+                }
             }
-
         }
+        private async Task NowaGra()
+        {
+
+            gra = new Gra();
+            gra.plansza.nowa_gra();
+            gra.Loop = true;
+            while (!gra.GameOver)
+            {
+                gra.NowyZrzut();
+                while (gra.Loop)
+                {
+                    await Task.Delay(700);
+
+                }
+            }
+        }
+
         private void Zapiszkolor(int column, int row)
         {
             string name = "C" + column + "R" + row;
@@ -55,9 +72,70 @@ namespace Tetris
 
             if (rectangle != null)
             {
-                rectangle.Fill = plansza.pola[column, row-1].kolor;
+                rectangle.Fill = gra.plansza.pola[column, row-1].kolor;
             }
         }
 
+        private async Task Window_KeyDown(object sender, KeyEventArgs klawisz)
+        { 
+        switch(klawisz.Key)
+            {    case Key.Left:
+                    {
+                        if (gra.Loop)
+                        {
+                            gra.przesun_w_lewo();
+                            AktualizujPlansze();
+                        }
+                        break;
+                    }
+                case Key.Right:
+                    {
+                        if (gra.Loop)
+                        { 
+                            gra.przesun_w_prawo();
+                            AktualizujPlansze();
+                        }
+                        break;
+                    }
+                case Key.Up:
+                    {
+                        //if (Loop)
+                        //{
+                        //gra.obroc();
+                        //AktualizujPlansze();
+                        //}
+                        //}
+                        break;
+                    }
+
+                case Key.F2:
+                    {
+                        if (gra == null || gra.GameOver)
+                        {
+                            await NowaGra();
+                        }
+                        break;
+                    }
+                case Key.Escape:
+                    {
+                        this.Close();
+                        break;
+                    }
+            }
+
+        }
+        private void AktualizujPlansze()
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 1; j < 23; j++)
+                    {
+                        Zapiszkolor(i, j);
+                    }
+                }
+            }
     }
+
+
 }
+

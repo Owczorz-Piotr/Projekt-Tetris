@@ -11,22 +11,39 @@ namespace Tetris.Bloki
         public BlokI()
         {
             int n = 4;
-            System.Windows.Media.SolidColorBrush kolor = kolory.niebieski;
-            int[,] pozycja = new int[n, n];
-            pozycja[0, 0] = 2;
-            pozycja[0, 1] = 0;
-            pozycja[0, 2] = 0;
-            pozycja[0, 3] = 0;
+            Pole[,] pola = new Pole[n, n];
 
-            pozycja[1, 0] = 2;
-            pozycja[1, 1] = 0;
-            pozycja[1, 2] = 0;
-            pozycja[1, 3] = 0;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    pola[i, j] = new Pole();
+                }
+            }
 
-            pozycja[2, 0] = 2;
-            pozycja[2, 1] = 0;
-            pozycja[2, 2] = 0;
-            pozycja[2, 3] = 0; 
+            pola[0, 0].status = 2;
+            pola[0, 0].kolor = kolory.niebieski;
+            pola[0, 1].status = 0;
+            pola[0, 2].status = 0;
+            pola[0, 3].status = 0;
+
+            pola[1, 0].status = 2;
+            pola[1, 0].kolor = kolory.niebieski;
+            pola[1, 1].status = 0;
+            pola[1, 2].status = 0;
+            pola[1, 3].status = 0;
+
+            pola[2, 0].status = 2;
+            pola[2, 0].kolor = kolory.niebieski;
+            pola[2, 1].status = 0;
+            pola[2, 2].status = 0;
+            pola[2, 3].status = 0;
+
+            pola[3, 0].status = 2;
+            pola[3, 0].kolor = kolory.niebieski;
+            pola[3, 1].status = 0;
+            pola[3, 2].status = 0;
+            pola[3, 3].status = 0;
         }
 
     }

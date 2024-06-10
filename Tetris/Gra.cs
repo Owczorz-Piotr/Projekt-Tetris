@@ -9,41 +9,11 @@ namespace Tetris
     internal class Gra
     {
         public Plansza plansza = new Plansza();
-        public bool GameOver;
-        public bool Loop;
-        public Queue<BlokBaza> queue_blok;
+        public bool GameOver = false;
+        public BlokBaza Blok;
+        public bool Loop=false;
 
-
-        public void dodaj_do_kolejki(Queue<BlokBaza> kolejka)
-        { 
-            Random rand = new Random();
-            int num = rand.Next(7);
-            switch (num) 
-            { 
-                case 0: 
-                    kolejka.Enqueue(new BlokI());
-                    break;
-                case 1:
-                    kolejka.Enqueue(new BlokJ());
-                    break;
-                case 2:
-                    kolejka.Enqueue(new BlokL());
-                    break;
-                case 3:
-                    kolejka.Enqueue(new BlokO());
-                    break;
-                case 4:
-                    kolejka.Enqueue(new BlokS());
-                    break;
-                case 5:
-                    kolejka.Enqueue(new BlokT());
-                    break;
-                case 6:
-                    kolejka.Enqueue(new BlokZ());
-                    break;
-            }
-        }
-    public void przesun_w_lewo(Plansza plansza)
+    public void przesun_w_lewo()
         {
             bool moza = true;
             for (int i = 0; i < 26; i++)
@@ -78,7 +48,7 @@ namespace Tetris
             }
         }
 
-        public void przezun_w_prawo(Plansza plansza)
+        public void przesun_w_prawo()
         {
             bool moza = true;
             for (int i = 0; i < 26; i++)
@@ -113,7 +83,7 @@ namespace Tetris
             }
         }
 
-        public void przezun_w_dol(Plansza plansza, bool loop)
+        public void przezun_w_dol()
         {
             bool moza = true;
             for (int j = 0; j < 10; j++)
@@ -132,7 +102,7 @@ namespace Tetris
                         if (moza == true) break;
                     }
             if (moza == false)
-                loop = false;
+                Loop = false;
             if (moza == true)
             {
                 for (int i = 0; i < 25; i++)
@@ -149,6 +119,44 @@ namespace Tetris
             }
         }
 
+        public void NowyZrzut()
+        {
+                Random rand = new Random();
+                int num = rand.Next(7);
+                switch (num)
+                {
+                    case 0:
+                        Blok = new BlokI();
+                        break;
+                    case 1:
+                        Blok = new BlokJ();
+                        break;
+                    case 2:
+                        Blok = new BlokL();
+                        break;
+                    case 3:
+                        Blok = new BlokO();
+                        break;
+                    case 4:
+                        Blok = new BlokS();
+                        break;
+                    case 5:
+                        Blok = new BlokT();
+                        break;
+                    case 6:
+                        Blok = new BlokZ();
+                        break;
+                }
+            int n = Blok.n;
+            for(int i = 0;i < n;i++) 
+            {
+                for (int j = 0; i < n; j++)
+                {
+                    plansza.pola[3 - n - i, 4 + n - j] = Blok.pola[i, j];
+                }
+            }
+        }
 
+   
     }
 }

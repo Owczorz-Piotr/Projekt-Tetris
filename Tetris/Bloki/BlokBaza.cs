@@ -11,18 +11,17 @@ namespace Tetris
 
     public abstract class BlokBaza
     {
-        public int n {get; }
-        public System.Windows.Media.SolidColorBrush kolor { get; }
-        public int[,] pozycja { get; }
+        public int n;
+        public Pole[,] pola;
 
-        public int[,] obrot()
+        public Pole[,] obrot()
         {
-            int[,] obrocony = new int[n,n];
+            Pole[,] obrocony = new Pole[n,n];
             for (int i = 0; i < n; i++)
                 {
                 for (int j = 0; j < n; j++)
                     {
-                    obrocony[j, n - 1 - i] = pozycja[i,j];
+                    obrocony[j, n - 1 - i] = pola[i,j];
                     }
                 }
 

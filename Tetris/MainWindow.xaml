@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Tetris"
         mc:Ignorable="d"
         Title="MainWindow" Height="920" Width="400"
-        ResizeMode="NoResize">
-
+        ResizeMode="NoResize"
+        KeyDown="Window_KeyDown">
     <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -49,7 +49,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="10" Background="black" TextAlignment="Center" VerticalAlignment="center" Foreground="White" FontSize="70" Height="120">TETRIS</TextBlock>
-
+          
 
     </Grid>
 </Window>

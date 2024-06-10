@@ -11,15 +11,26 @@ namespace Tetris.Bloki
         public BlokO()
         {
             int n = 2;
-            System.Windows.Media.SolidColorBrush kolor = kolory.pomaranczowy;
-            int[,] pozycja = new int[n, n];
-            pozycja[0, 0] = 2;
-            pozycja[0, 1] = 2;
+            Pole[,] pola = new Pole[n, n];
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    pola[i, j] = new Pole();
+                }
+            }
+
+            pola[0, 0].status = 2;
+            pola[0, 0].kolor = kolory.pomaranczowy;
+            pola[0, 1].status = 2;
+            pola[0, 1].kolor = kolory.pomaranczowy;
 
 
-            pozycja[1, 0] = 2;
-            pozycja[1, 1] = 2;
-
+            pola[1, 0].status = 2;
+            pola[1, 0].kolor = kolory.pomaranczowy;
+            pola[1, 1].status = 2;
+            pola[1, 1].kolor = kolory.pomaranczowy;
         }
 
     }
