@@ -48,8 +48,9 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="10" Background="black" TextAlignment="Center" VerticalAlignment="center" Foreground="White" FontSize="70" Height="120">TETRIS</TextBlock>
-          
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="9" Background="black" TextAlignment="Center" VerticalAlignment="center" Foreground="White" FontSize="70" Height="110">TETRIS</TextBlock>
+        <Button Grid.Column="8" Grid.Row="0" Content="?" Grid.ColumnSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="80" Height="110" Background="Black" Foreground="White" FontSize="70"  Click="Pomoc_Click"/>
+
 
     </Grid>
 </Window>

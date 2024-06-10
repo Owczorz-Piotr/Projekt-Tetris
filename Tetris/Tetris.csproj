@@ -72,7 +72,6 @@
     </Compile>
     <Compile Include="Bloki\BlokBaza.cs" />
     <Compile Include="Gra.cs" />
-    <Compile Include="kolory.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

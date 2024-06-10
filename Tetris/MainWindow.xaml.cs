@@ -16,9 +16,6 @@ using System.Xml.Serialization;
 
 namespace Tetris
 {
-    /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         internal Gra gra = new Gra();
@@ -36,7 +33,7 @@ namespace Tetris
                 {
                     Rectangle rectangle = new Rectangle
                     {
-                        Fill = Brushes.Purple
+                        Fill = Brushes.Gray
                     };
 
                     string rectName = "C" + i + "R" + j;
@@ -50,20 +47,23 @@ namespace Tetris
         }
         private async Task NowaGra()
         {
-
+            int czas = 100000/ (100 + 8 * gra.Runda);
             gra = new Gra();
             gra.plansza.nowa_gra();
-            gra.Loop = true;
             gra.GameOver = false;
             while (!gra.GameOver)
             {
                 gra.NowyZrzut();
+                AktualizujPlansze();
+                gra.Loop = true;
                 while (gra.Loop)
                 {
-                    await Task.Delay(700);
-                    
+                    await Task.Delay(czas);
+                    gra.przesun_w_dol();
+                    AktualizujPlansze();
                 }
             }
+            MesKoniec();
         }
 
         private void Zapiszkolor(int column, int row)
@@ -73,8 +73,13 @@ namespace Tetris
 
             if (rectangle != null)
             {
-                rectangle.Fill = gra.plansza.pola[column, row-1].kolor;
+                rectangle.Fill = gra.plansza.pola[column, row+3].kolor;
             }
+        }
+
+        private void MesKoniec()
+        {
+            MessageBox.Show("Chyba przegrałeś, naciśniej F2, aby zagrać ponownie", "No i klops...", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
         }
 
         private async void Window_KeyDown(object sender, KeyEventArgs klawisz)
@@ -103,18 +108,18 @@ namespace Tetris
                     {
                         if (gra.Loop)
                         {
-                            gra.przezun_w_dol();
+                            gra.przesun_w_dol();
                             AktualizujPlansze();
                         }
                         break;
                     }
                 case Key.Up:
                     {
-                        //if (gra.Loop)
-                        //{
-                        //gra.obroc();
-                        //AktualizujPlansze();
-                        //}
+                        if (gra.Loop)
+                        {
+                            gra.obrot();
+                            AktualizujPlansze();
+                        }
                         break;
                     }
                 case Key.F2:
@@ -132,6 +137,17 @@ namespace Tetris
                     }
             }
         }
+
+        private void Pomoc_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("F2 - nowa gra\n" +
+                            "Strzałaka w prawo - przesuń blok w prawo\n" +
+                            "Strzałaka w lewo - przesuń blok w lewo\n" +
+                            "Strzałaka w dół - przesuń blok w doł\n" +
+                            "Strzałaka w górę - obróć blok\n" +
+                            "Esc - wyjdź");
+        }
+
         private void AktualizujPlansze()
             {
                 for (int i = 0; i < 10; i++)
